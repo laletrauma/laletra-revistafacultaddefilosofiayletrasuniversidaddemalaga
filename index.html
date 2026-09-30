@@ -1,188 +1,368 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>La Letra | Números</title>
-    <style>
-      :root {
-        --bg: #f7f3ee;
-        --card: #fff;
-        --primary: #332b22;
-        --accent: #8b5e3c;
-        --soft: #e9dcc8;
-        --text: #1f1a17;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LA LETRA</title>
+  <style>
+    :root {
+      --bg1: #0b1020;
+      --bg2: #111827;
+      --panel: #171f2e;
+      --panel-2: #1d2738;
+      --text: #edf2ff;
+      --muted: #aab7d1;
+      --accent: #67e8f9;
+      --accent-2: #7c3aed;
+      --border: rgba(255,255,255,.08);
+      --shadow: rgba(0,0,0,.35);
+    }
 
-      * { box-sizing: border-box; }
+    * { box-sizing: border-box; }
 
-      body {
-        margin: 0;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-        background: var(--bg);
-        color: var(--text);
-      }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, var(--bg1), var(--bg2));
+      color: var(--text);
+    }
 
-      .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 48px 20px 80px;
-      }
+    /* CABECERA */
+    .navbar {
+      background: linear-gradient(180deg, rgba(23,31,46,0.95), rgba(29,39,56,0.85));
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid var(--accent);
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 8px 24px var(--shadow);
+    }
 
-      .header {
-        text-align: center;
-        margin-bottom: 40px;
-      }
+    .navbar-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
 
-      .header h1 {
-        margin: 0 0 8px;
-        color: var(--primary);
-        font-size: clamp(2rem, 5vw, 3.5rem);
-        font-weight: 800;
-      }
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
 
-      .header p {
-        margin: 0;
-        color: #4f453d;
-        font-size: 1.05rem;
-      }
+    .logo-img {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+    }
 
+    .logo {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin: 0;
+      font-family: 'Times New Roman', Times, serif;
+      font-style: italic;
+    }
+
+    .search-box {
+      flex: 1;
+      max-width: 400px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 10px 16px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .search-box input::placeholder {
+      color: var(--muted);
+    }
+
+    .search-box input:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: rgba(255,255,255,0.12);
+      box-shadow: 0 0 12px rgba(103, 232, 249, 0.2);
+    }
+
+    /* CONTENEDOR PRINCIPAL */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 54px);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .header p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* GRID DE PORTADAS */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+
+    @media (max-width: 1200px) {
       .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 24px;
+        grid-template-columns: repeat(3, 1fr);
       }
+    }
 
-      .card {
-        background: var(--card);
-        border: 1px solid rgba(0,0,0,0.08);
-        border-radius: 18px;
-        box-shadow: 0 8px 24px rgba(35, 25, 20, 0.07);
-        overflow: hidden;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    @media (max-width: 768px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
       }
-
-      .card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 28px rgba(35, 25, 20, 0.12);
+      .navbar-content {
+        flex-direction: column;
+        gap: 12px;
       }
-
-      .cover-link {
-        display: block;
-        text-decoration: none;
+      .search-box {
+        max-width: 100%;
       }
+    }
 
-      .cover {
-        width: 100%;
-        height: 300px;
-        object-fit: cover;
-        display: block;
-        background: var(--soft);
+    @media (max-width: 480px) {
+      .grid {
+        grid-template-columns: repeat(1, 1fr);
       }
+    }
 
-      .meta {
-        padding: 14px 16px 16px;
-      }
+    /* TARJETA DE PORTADA */
+    .card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: linear-gradient(180deg, var(--panel), var(--panel-2));
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      box-shadow: 0 12px 28px var(--shadow);
+    }
 
-      .meta h2 {
-        margin: 0 0 10px;
-        font-size: 1.2rem;
-        color: var(--primary);
-        font-weight: 700;
-      }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(103, 232, 249, 0.8);
+      box-shadow: 0 18px 34px rgba(0,0,0,.45);
+    }
 
-      .read {
-        display: inline-block;
-        padding: 8px 12px;
-        border-radius: 999px;
-        background: var(--primary);
-        color: white;
-        text-decoration: none;
-        font-weight: 700;
-        font-size: 0.9rem;
-        transition: background 0.2s ease;
-      }
+    .card.hidden {
+      display: none;
+    }
 
-      .read:hover {
-        background: var(--accent);
-      }
+    .cover {
+      display: block;
+      width: 100%;
+      aspect-ratio: 3 / 4.2;
+      object-fit: cover;
+      background: #1f2937;
+      border-bottom: 1px solid var(--border);
+    }
 
-      .empty {
-        text-align: center;
-        background: white;
-        border-radius: 16px;
-        padding: 32px;
-        color: #544b45;
-        border: 1px dashed rgba(0,0,0,0.15);
-      }
+    .meta {
+      padding: 12px 10px 14px;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
 
-      .loading {
-        text-align: center;
-        padding: 40px;
-        color: #4f453d;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <header class="header">
-        <h1>La Letra</h1>
-        <p>Revista universitaria · Galería de números</p>
-      </header>
+    .meta small {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
 
-      <main id="gallery" class="grid">
-        <div class="loading">Cargando galería...</div>
-      </main>
+    /* MENSAJE SIN RESULTADOS */
+    .no-results {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--muted);
+      font-size: 18px;
+      display: none;
+    }
+
+    .no-results.show {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <!-- CABECERA CON LOGO Y BÚSQUEDA -->
+  <nav class="navbar">
+    <div class="navbar-content">
+      <div class="logo-section">
+        <img src="https://www.uma.es/media/files/logo-uma-horizontal-positivo.png" alt="Logo UMA" class="logo-img" />
+        <h1 class="logo">LA LETRA</h1>
+      </div>
+      <div class="search-box">
+        <input 
+          type="text" 
+          id="searchInput" 
+          placeholder="Buscar por número (ej: 5, 25, 56)..."
+        />
+      </div>
+    </div>
+  </nav>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="container">
+    <div class="header">
+      <p>Selecciona una portada para abrir el PDF completo</p>
     </div>
 
-    <script>
-      async function loadIssues() {
-        const gallery = document.getElementById('gallery');
+    <div id="gallery" class="grid"></div>
+    <div id="noResults" class="no-results">
+      No se encontraron revistas con ese número.
+    </div>
+  </div>
 
-        try {
-          const response = await fetch('data/issues.json');
-          const data = await response.json();
+  <script>
+    const ids = [
+      "1IU6CF_C9iuTrNU7Cneh6bDdEHlB9Br7G",
+      "19XDkFzqzfVOS2Jrut39CgtNHcqT8wbG1",
+      "13C4sglyzwA7Gv3NZq0nmv7fF0GYXn_Pc",
+      "1peSK2WttWolTAOH7iyKBEm9g_FHpRGTa",
+      "1J1F0I3n7YRTeI6WF-C3YdZTDZ52nEVkn",
+      "1vbUEfwhou5nLw-wqUCTSfxgETNgqVrtc",
+      "1uwDRBewo9_FXVeIE-TaTiKYQsB3NLgB9",
+      "1qn_Y84V3SpZVBh9kA6Qzw0srnUP40qn-",
+      "1Oaop6Ylv6-IqUJ5pmIUQ6uMJfqL-gcJV",
+      "1DEJcZdOeRPEPbRtlkmygMavxD4HdqiFc",
+      "13gzxEtI2l1F-jgz6CQOGe87nA8U4Ta2R",
+      "1woJwFMM8CSjjcfVc3OJj49DQs_DGX2Fi",
+      "17oE7pTZ2d3uP0bL-rVSdmSWuM9dsVLAl",
+      "1JEwCi6JnSMpRkW1AVO7Gl4yNvR7qnGXb",
+      "1LQad5C7E58oGGNEwsG5R6lQdqoD4ITZr",
+      "12TVzAQMpdfmfoMAEGxDrh5G4NZ4ebFQ6",
+      "14IqiTr76EJwlsd1qrmrE8yusJ0xF4uHl",
+      "1507UF_zBK56XynEu9dCSVkOfPYA6EPPV",
+      "19k4ceR2SDer4Bmxuf6-qAqmoP_F8Dj2A",
+      "1FoR0eG0QJQmS5mF9tC1V6u9TJwzC2f2t",
+      "1fY8lP4jM7n8wru3k2n8Yh0KJH7fkaXyJ",
+      "1MJmCBb6MZ7PUpU1_bu0eC6X9rVQ3R6BZ",
+      "1Jo28XMJfC9FJXki9oNB2tu4q0a9VIMdU",
+      "1JYJ2nD7KAf8Z9NfQw4R-kHh8YxUEM8y3",
+      "1C5kASfCjTQH8s8YvNcfabV1KStp5YY6l",
+      "1M7nE71u4AWz8RGD-v3vbydW7zw4M7J8A",
+      "1R8E0FtjKKq7alJdR5p8uXf_F5R_tz0dJ",
+      "1wLxMZcFR0n3nM4trZL5ZP1Cs8hTQyV3k",
+      "1sGDVfNwPKn7eU7M3v0g4QJ7C6V0K1kFQ",
+      "1Yh8S0ZrXzw7rC1m4N5sWg53mVj6PMx2H",
+      "1cR8N2Da3Yw7q6R2hH1fM0s4Vv9pJkX4n",
+      "1zH3Q4RkP87uT2rC8M1sYqL6Vf3nW7jQk",
+      "1aB2nL7h7fKX3w2qD6cZ8v0YJk4P9smNw",
+      "1mQh7W0fX2S9gT6Y1cP8rK3L4vF7nC9xQ",
+      "1Q5pdF7jg8uR3vN0kT4mG6bY1PzL2w9s",
+      "1nD4fK0eR5jC7vL3T9yP2sM8wQ1bH4uX",
+      "1djiR7lVMh6b7AdqAmQZr-RsD-mU1zIKF",
+      "1-Ol1nttRRCu1HzZ10rOGrkEykTNhveyM",
+      "1deZqj8lLfvVA4067s87e1m8CywKWgDJ2",
+      "1upuxSME27BM0KIviYCrf_qSwqUXfSg6Y",
+      "1G1n7vzBQmc2sicrYw1gQtzIDi5FvHYeJ",
+      "1QX2TuynfHjT2pQzpO-ZId1WKEqE71kPy",
+      "1bn-tX0-ilS5q4zBhl5uC3tX3KnLrL-cr",
+      "1GuNKMRIUVfJdYc8PvngEXadstgscMVSV",
+      "16jgQ48SEmQMwgndnH8fX3rreIyugwxR2",
+      "14FvfQW5NZY5b1HvzTC6KgHBDJHerSiZK",
+      "1VWgkCdkY2dFZoio7OlGJY5T7O3dtKolF",
+      "1oNs3j0v4EknU-MRvwbx2O0KZlVZ9vXhP",
+      "1Y140gJ0rKJlVb7XvZJkJ0LQ3mOH9vXti",
+      "1p_qS5S_Vgub-J4yUvmIWuSvxEdz_Xtfv",
+      "1LQiVvt2r2ZfQC3qD6BMpL69ESHGNJ0bl",
+      "1W_JRlB0GflTo538NHFnoRCuh2apdAfl6",
+      "1Qob-Lwyqp_qS22E4BpMZKkWdZwxOg_wk",
+      "1Dls0hejiNDjPFCzZoRbydMzs6tvbM6Os",
+      "12wK14J3tfXWuquhAuSleK6O7d6F7Oxh7"
+    ];
 
-          gallery.innerHTML = '';
+    const gallery = document.getElementById("gallery");
+    const searchInput = document.getElementById("searchInput");
+    const noResults = document.getElementById("noResults");
+    const cards = [];
 
-          if (!data.issues || data.issues.length === 0) {
-            gallery.innerHTML = `
-              <div class="empty" style="grid-column: 1 / -1;">
-                Aún no hay números añadidos. Añade tus PDFs y portadas dentro de la carpeta <strong>ejemplares/</strong>.
-              </div>
-            `;
-            return;
-          }
+    // Crear todas las tarjetas
+    ids.forEach((id, index) => {
+      const link = document.createElement("a");
+      link.className = "card";
+      link.href = `https://drive.google.com/file/d/${id}/view`;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.dataset.number = index + 1;
 
-          data.issues.forEach(issue => {
-            const card = document.createElement('article');
-            card.className = 'card';
+      const img = document.createElement("img");
+      img.className = "cover";
+      img.src = `https://drive.google.com/thumbnail?id=${id}&sz=w600`;
+      img.alt = `Portada ${index + 1}`;
+      img.loading = "lazy";
 
-            const cover = issue.cover || 'assets/placeholder-cover.svg';
-            const pdf = issue.pdf || '#';
+      const meta = document.createElement("div");
+      meta.className = "meta";
+      meta.innerHTML = `Número ${index + 1}<small>Abrir PDF</small>`;
 
-            card.innerHTML = `
-              <a class="cover-link" href="${pdf}" target="_blank" rel="noopener noreferrer">
-                <img class="cover" src="${cover}" alt="${issue.alt || 'Portada'}" loading="lazy" />
-              </a>
-              <div class="meta">
-                <h2>${issue.numero}</h2>
-                <a class="read" href="${pdf}" target="_blank" rel="noopener noreferrer">Leer PDF</a>
-              </div>
-            `;
+      link.appendChild(img);
+      link.appendChild(meta);
+      gallery.appendChild(link);
+      cards.push(link);
+    });
 
-            gallery.appendChild(card);
-          });
-        } catch (error) {
-          gallery.innerHTML = `
-            <div class="empty" style="grid-column: 1 / -1;">
-              No se pudo cargar la lista de ejemplares. Error: ${error.message}
-            </div>
-          `;
+    // Función de búsqueda
+    searchInput.addEventListener("input", (e) => {
+      const searchTerm = e.target.value.trim();
+      let hasResults = false;
+
+      cards.forEach((card) => {
+        const cardNumber = card.dataset.number;
+        
+        if (searchTerm === "" || cardNumber.includes(searchTerm)) {
+          card.classList.remove("hidden");
+          hasResults = true;
+        } else {
+          card.classList.add("hidden");
         }
-      }
+      });
 
-      loadIssues();
-    </script>
-  </body>
+      // Mostrar mensaje si no hay resultados
+      if (!hasResults && searchTerm !== "") {
+        noResults.classList.add("show");
+      } else {
+        noResults.classList.remove("show");
+      }
+    });
+  </script>
+</body>
 </html>
