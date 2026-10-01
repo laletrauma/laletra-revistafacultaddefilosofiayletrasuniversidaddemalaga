@@ -161,5 +161,29 @@ async function loadGallery() {
             const nb = Number((b.numero || '').replace(/\D+/g, '')) || 0;
             return nb - na;
         });
+
+        orderedIssues.forEach(issue => {
+            const link = document.createElement('a');
+            link.className = 'issue-link';
+            
+            const fileName = issue.pdf ? issue.pdf.split('/').pop() : `${issue.numero}.pdf`;
+            
+            link.href = 'ejemplares/' + fileName;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            
+            link.textContent = `${issue.numero} — ${fileName}`;
+            gallery.appendChild(link);
+        });
+
+    } catch (err) {
+        console.error(err);
+        gallery.innerHTML = '<div class="empty-state">No se pudieron cargar los ejemplares. Revisa los enlaces de datos.</div>';
+    }
+}
+
+loadGallery();
+</script>
 </body>
 </html>
+
