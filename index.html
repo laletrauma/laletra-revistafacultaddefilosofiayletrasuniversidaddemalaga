@@ -162,17 +162,20 @@
           return nb - na;
         });
 
-        orderedIssues.forEach(issue => {
+       orderedIssues.forEach(issue => {
     const link = document.createElement('a');
     link.className = 'issue-link';
     
-    // Primero calculamos el nombre limpio del archivo
     const fileName = issue.pdf ? issue.pdf.split('/').pop() : `${issue.numero}.pdf`;
     
-    // SOLUCIÓN: Añadimos 'ejemplares/' antes del nombre del archivo
-    link.href = issue.pdf ? 'ejemplares/' + fileName : '#';
+    // CORRECCIÓN DEFINITIVA: Limpiamos la ruta para que use directamente el nombre del archivo dentro de ejemplares
+    link.href = 'ejemplares/' + fileName;
     link.target = '_blank';
     link.rel = 'noopener noreferrer';
+    
+    link.textContent = `${issue.numero} — ${fileName}`;
+    gallery.appendChild(link);
+});
     
     link.textContent = `${issue.numero} — ${fileName}`;
     gallery.appendChild(link);
