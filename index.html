@@ -140,47 +140,26 @@
     <div id="gallery" class="issue-list"></div>
   </main>
 
-  <script>
-    async function loadGallery() {
-      const gallery = document.getElementById('gallery');
-
-      try {
+ <script>
+async function loadGallery() {
+    const gallery = document.getElementById('gallery');
+    
+    try {
         const response = await fetch('data/issues.json');
         if (!response.ok) throw new Error('No se pudo cargar data/issues.json');
-
+        
         const data = await response.json();
         const issues = Array.isArray(data.issues) ? data.issues : [];
-
-        if (!issues.length) {
-          gallery.innerHTML = '<div class="empty-state">Todavía no hay ejemplares disponibles.</div>';
-          return;
+        
+        if (issues.length === 0) {
+            gallery.innerHTML = "<div class='empty-state'>Aún no hay ejemplares disponibles.</div>";
+            return;
         }
-
-       const orderedIssues = [...issues].sort((a, b) => {
-        const na = Number((a.numero || '').replace(/\D+/g, '')) || 0;
-        const nb = Number((b.numero || '').replace(/\D+/g, '')) || 0;
-        return nb - na;
-    });
-
-    orderedIssues.forEach(issue => {
-        const link = document.createElement('a');
-        link.className = 'issue-link';
-
-        const fileName = issue.pdf ? issue.pdf.split('/').pop() : `${issue.numero}.pdf`;
-
-        link.href = 'ejemplares/' + fileName;
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-
-        link.textContent = `${issue.numero} — ${fileName}`;
-        gallery.appendChild(link);
-    });
-
-        gallery.innerHTML = '<div class="empty-state">No se pudieron cargar los ejemplares. Revisa los enlaces de Drive o la carpeta de PDFs.</div>';
-      }
-    }
-
-    loadGallery();
-  </script>
+        
+        const orderedIssues = [...issues].sort((a, b) => {
+            const na = Number((a.numero || '').replace(/\D+/g, '')) || 0;
+            const nb = Number((b.numero || '').replace(/\D+/g, '')) || 0;
+            return nb - na;
+        });
 </body>
 </html>
