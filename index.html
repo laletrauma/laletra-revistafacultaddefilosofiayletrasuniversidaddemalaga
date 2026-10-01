@@ -6,16 +6,10 @@
   <title>LA LETRA</title>
   <style>
     :root {
-      --bg1: #0b1020;
-      --bg2: #111827;
-      --panel: #171f2e;
-      --panel-2: #1d2738;
-      --text: #edf2ff;
-      --muted: #aab7d1;
-      --accent: #67e8f9;
-      --accent-2: #7c3aed;
-      --border: rgba(255,255,255,.08);
-      --shadow: rgba(0,0,0,.35);
+      --text: #000000;
+      --accent: #000000;
+      --border: rgba(0,0,0,.08);
+      --shadow: rgba(0,0,0,.1);
     }
 
     * { box-sizing: border-box; }
@@ -23,20 +17,19 @@
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(180deg, var(--bg1), var(--bg2));
+      background: #ffffff;
       color: var(--text);
     }
 
     /* CABECERA */
     .navbar {
-      background: linear-gradient(180deg, rgba(23,31,46,0.95), rgba(29,39,56,0.85));
-      backdrop-filter: blur(10px);
+      background: #ffffff;
       border-bottom: 2px solid var(--accent);
       padding: 20px 0;
       position: sticky;
       top: 0;
       z-index: 100;
-      box-shadow: 0 8px 24px var(--shadow);
+      box-shadow: 0 2px 8px var(--shadow);
     }
 
     .navbar-content {
@@ -44,7 +37,7 @@
       margin: 0 auto;
       padding: 0 20px;
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
       gap: 20px;
     }
@@ -56,16 +49,28 @@
     }
 
     .logo-img {
-      width: 50px;
-      height: 50px;
-      object-fit: contain;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 2px solid #000000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: bold;
+      text-align: center;
+      padding: 8px;
+      color: #000000;
+      font-family: 'Times New Roman', Times, serif;
+      font-style: italic;
     }
 
     .logo {
       font-size: 32px;
       font-weight: 900;
       letter-spacing: 0.12em;
-      color: var(--accent);
+      color: var(--text);
       text-transform: uppercase;
       margin: 0;
       font-family: 'Times New Roman', Times, serif;
@@ -73,30 +78,7 @@
     }
 
     .search-box {
-      flex: 1;
-      max-width: 400px;
-    }
-
-    .search-box input {
-      width: 100%;
-      padding: 10px 16px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--text);
-      font-size: 14px;
-      transition: all 0.3s ease;
-    }
-
-    .search-box input::placeholder {
-      color: var(--muted);
-    }
-
-    .search-box input:focus {
-      outline: none;
-      border-color: var(--accent);
-      background: rgba(255,255,255,0.12);
-      box-shadow: 0 0 12px rgba(103, 232, 249, 0.2);
+      display: none;
     }
 
     /* CONTENEDOR PRINCIPAL */
@@ -119,11 +101,7 @@
     }
 
     .header p {
-      margin: 10px 0 0;
-      color: var(--muted);
-      font-size: 14px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      display: none;
     }
 
     /* GRID DE PORTADAS */
@@ -147,9 +125,6 @@
         flex-direction: column;
         gap: 12px;
       }
-      .search-box {
-        max-width: 100%;
-      }
     }
 
     @media (max-width: 480px) {
@@ -163,18 +138,18 @@
       display: block;
       text-decoration: none;
       color: inherit;
-      background: linear-gradient(180deg, var(--panel), var(--panel-2));
+      background: #ffffff;
       border: 1px solid var(--border);
-      border-radius: 16px;
+      border-radius: 8px;
       overflow: hidden;
       transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-      box-shadow: 0 12px 28px var(--shadow);
+      box-shadow: 0 4px 12px var(--shadow);
     }
 
     .card:hover {
       transform: translateY(-4px);
-      border-color: rgba(103, 232, 249, 0.8);
-      box-shadow: 0 18px 34px rgba(0,0,0,.45);
+      border-color: var(--accent);
+      box-shadow: 0 8px 20px rgba(0,0,0,.15);
     }
 
     .card.hidden {
@@ -186,32 +161,22 @@
       width: 100%;
       aspect-ratio: 3 / 4.2;
       object-fit: cover;
-      background: #1f2937;
-      border-bottom: 1px solid var(--border);
+      background: #f0f0f0;
     }
 
     .meta {
-      padding: 12px 10px 14px;
-      text-align: center;
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
+      display: none;
     }
 
     .meta small {
-      display: block;
-      margin-top: 5px;
-      color: var(--muted);
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      display: none;
     }
 
     /* MENSAJE SIN RESULTADOS */
     .no-results {
       text-align: center;
       padding: 60px 20px;
-      color: var(--muted);
+      color: var(--text);
       font-size: 18px;
       display: none;
     }
@@ -226,15 +191,8 @@
   <nav class="navbar">
     <div class="navbar-content">
       <div class="logo-section">
-        <img src="https://www.uma.es/media/files/logo-uma-horizontal-positivo.png" alt="Logo UMA" class="logo-img" />
+        <div class="logo-img">LA<br>LETRA</div>
         <h1 class="logo">LA LETRA</h1>
-      </div>
-      <div class="search-box">
-        <input 
-          type="text" 
-          id="searchInput" 
-          placeholder="Buscar por número (ej: 5, 25, 56)..."
-        />
       </div>
     </div>
   </nav>
@@ -311,57 +269,31 @@
     ];
 
     const gallery = document.getElementById("gallery");
-    const searchInput = document.getElementById("searchInput");
     const noResults = document.getElementById("noResults");
     const cards = [];
 
+    // Invertir el array para mostrar del último al primero
+    const reversedIds = [...ids].reverse();
+
     // Crear todas las tarjetas
-    ids.forEach((id, index) => {
+    reversedIds.forEach((id, index) => {
+      const originalIndex = ids.length - index;
       const link = document.createElement("a");
       link.className = "card";
       link.href = `https://drive.google.com/file/d/${id}/view`;
       link.target = "_blank";
       link.rel = "noopener noreferrer";
-      link.dataset.number = index + 1;
+      link.dataset.number = originalIndex;
 
       const img = document.createElement("img");
       img.className = "cover";
       img.src = `https://drive.google.com/thumbnail?id=${id}&sz=w600`;
-      img.alt = `Portada ${index + 1}`;
+      img.alt = `Portada ${originalIndex}`;
       img.loading = "lazy";
 
-      const meta = document.createElement("div");
-      meta.className = "meta";
-      meta.innerHTML = `Número ${index + 1}<small>Abrir PDF</small>`;
-
       link.appendChild(img);
-      link.appendChild(meta);
       gallery.appendChild(link);
       cards.push(link);
-    });
-
-    // Función de búsqueda
-    searchInput.addEventListener("input", (e) => {
-      const searchTerm = e.target.value.trim();
-      let hasResults = false;
-
-      cards.forEach((card) => {
-        const cardNumber = card.dataset.number;
-        
-        if (searchTerm === "" || cardNumber.includes(searchTerm)) {
-          card.classList.remove("hidden");
-          hasResults = true;
-        } else {
-          card.classList.add("hidden");
-        }
-      });
-
-      // Mostrar mensaje si no hay resultados
-      if (!hasResults && searchTerm !== "") {
-        noResults.classList.add("show");
-      } else {
-        noResults.classList.remove("show");
-      }
     });
   </script>
 </body>
