@@ -15,12 +15,12 @@
     .navbar { background:#fff; border-bottom:2px solid var(--accent); padding:20px 0; position:sticky; top:0; z-index:100; box-shadow:0 2px 8px var(--shadow); }
     .navbar-content { max-width:1400px; margin:0 auto; padding:0 20px; display:flex; justify-content:space-between; align-items:center; gap:20px; }
     .logo-section { display:flex; align-items:center; gap:15px; }
-    .logo-img { width:70px; height:70px; border-radius:50%; background:#fff; border:3px solid #000; display:flex; align-items:center; justify-content:center; font:italic bold 14px/1.2 'Times New Roman',serif; white-space:nowrap; }
+    .logo-img { width:70px; height:70px; border-radius:50%; background:#fff; border:3px solid #000; display:flex; align-items:center; justify-content:center; font:italic bold 14px/1.2 'Times New Roman',serif; }
     .logo { font:italic 900 32px 'Times New Roman',serif; letter-spacing:.12em; margin:0; }
     .uma-logo { max-height:70px; max-width:260px; width:auto; object-fit:contain; }
     .container { max-width:1400px; margin:0 auto; padding:40px 20px 80px; }
     .grid { display:grid; grid-template-columns:repeat(4,1fr); gap:22px; }
-    .card { display:block; text-decoration:none; color:inherit; background:#fff; border:1px solid var(--border); border-radius:8px; overflow:hidden; transition:transform .18s,box-shadow .18s; box-shadow:0 4px 12px var(--shadow); }
+    .card { display:block; text-decoration:none; color:inherit; background:#fff; border:1px solid var(--border); border-radius:8px; overflow:hidden; transition:transform .18s,box-shadow .18s; box-shadow:0 2px 8px rgba(0,0,0,.06); }
     .card:hover { transform:translateY(-4px); box-shadow:0 8px 20px rgba(0,0,0,.15); }
     .cover { display:block; width:100%; aspect-ratio:3/4.2; object-fit:cover; background:#f0f0f0; }
     .cover-fallback { display:flex; width:100%; aspect-ratio:3/4.2; align-items:center; justify-content:center; text-align:center; padding:20px; background:#f0f0f0; color:#555; font-weight:bold; }
@@ -39,47 +39,129 @@
     </div>
   </nav>
   <main class="container">
-    <div id="errorMessage" class="error-message">Algunas portadas no se pueden mostrar desde Google Drive. Pulsa sobre ellas para abrir directamente el PDF.</div>
+    <div id="errorMessage" class="error-message">Algunas portadas no se pueden mostrar desde Google Drive o rutas locales. Pulsa sobre ellas para abrir directamente el PDF.</div>
     <div id="gallery" class="grid"></div>
   </main>
-  <script>
-    const ids = [
-      "1IU6CF_C9iuTrNU7Cneh6bDdEHlB9Br7G","19XDkFzqzfVOS2Jrut39CgtNHcqT8wbG1","13C4sglyzwA7Gv3NZq0nmv7fF0GYXn_Pc","1peSK2WttWolTAOH7iyKBEm9g_FHpRGTa","1J1F0I3n7YRTeI6WF-C3YdZTDZ52nEVkn","1vbUEfwhou5nLw-wqUCTSfxgETNgqVrtc","1uwDRBewo9_FXVeIE-TaTiKYQsB3NLgB9","1qn_Y84V3SpZVBh9kA6Qzw0srnUP40qn-","1Oaop6Ylv6-IqUJ5pmIUQ6uMJfqL-gcJV","1DEJcZdOeRPEPbRtlkmygMavxD4HdqiFc","13gzxEtI2l1F-jgz6CQOGe87nA8U4Ta2R","1woJwFMM8CSjjcfVc3OJj49DQs_DGX2Fi","17oE7pTZ2d3uP0bL-rVSdmSWuM9dsVLAl","1JEwCi6JnSMpRkW1AVO7Gl4yNvR7qnGXb","1LQad5C7E58oGGNEwsG5R6lQdqoD4ITZr","12TVzAQMpdfmfoMAEGxDrh5G4NZ4ebFQ6","14IqiTr76EJwlsd1qrmrE8yusJ0xF4uHl","1507UF_zBK56XynEu9dCSVkOfPYA6EPPV","19k4ceR2SDer4Bmxuf6-qAqmoP_F8Dj2A","1djiR7lVMh6b7AdqAmQZr-RsD-mU1zIKF","1-Ol1nttRRCu1HzZ10rOGrkEykTNhveyM","1deZqj8lLfvVA4067s87e1m8CywKWgDJ2","1upuxSME27BM0KIviYCrf_qSwqUXfSg6Y","1G1n7vzBQmc2sicrYw1gQtzIDi5FvHYeJ","1QX2TuynfHjT2pQzpO-ZId1WKEqE71kPy","1bn-tX0-ilS5q4zBhl5uC3tX3KnLrL-cr","1GuNKMRIUVfJdYc8PvngEXadstgscMVSV","16jgQ48SEmQMwgndnH8fX3rreIyugwxR2","12wK14J3tfXWuquhAuSleK6O7d6F7Oxh7"
-    ];
+  <script type="module">
+    import * as pdfjsLib from 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs';
+
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs';
+
     const gallery = document.getElementById('gallery');
     const errorMessage = document.getElementById('errorMessage');
-    [...ids].reverse().forEach((id, index) => {
-      const number = ids.length - index;
-      const link = document.createElement('a');
-      link.className = 'card';
-      link.href = `https://drive.google.com/file/d/${encodeURIComponent(id)}/view?usp=sharing`;
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
-      const img = document.createElement('img');
-      img.className = 'cover';
-      img.alt = `Portada del número ${number}`;
-      img.loading = 'lazy';
-      const sources = [
-        `https://drive.google.com/thumbnail?id=${encodeURIComponent(id)}&sz=w1000`,
-        `https://drive.google.com/uc?export=view&id=${encodeURIComponent(id)}`,
-        `https://lh3.googleusercontent.com/d/${encodeURIComponent(id)}=w1000`
-      ];
-      let sourceIndex = 0;
-      const fallback = () => {
-        if (sourceIndex < sources.length) img.src = sources[sourceIndex++];
-        else {
-          const placeholder = document.createElement('div');
-          placeholder.className = 'cover-fallback';
-          placeholder.textContent = `Número ${number} — pulsa para abrir el PDF`;
-          img.replaceWith(placeholder);
-          errorMessage.classList.add('show');
+
+    function showPlaceholder(number, parent) {
+      const placeholder = document.createElement('div');
+      placeholder.className = 'cover-fallback';
+      placeholder.textContent = `Número ${number} — pulsa para abrir el PDF`;
+      parent.innerHTML = '';
+      parent.appendChild(placeholder);
+      errorMessage.classList.add('show');
+    }
+
+    async function renderPdfFirstPageToCanvas(pdfUrl, canvas) {
+      const pdf = await pdfjsLib.getDocument({ url: pdfUrl }).promise;
+      const page = await pdf.getPage(1);
+      const viewport = page.getViewport({ scale: 1.25 });
+      const context = canvas.getContext('2d');
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+      await page.render({ canvasContext: context, viewport }).promise;
+    }
+
+    function createIssueCard(issue) {
+      const card = document.createElement('a');
+      card.className = 'card';
+      card.href = issue.pdf || '#';
+      card.target = '_blank';
+      card.rel = 'noopener noreferrer';
+
+      const number = issue.numero || 'Nº';
+      const pdfUrl = issue.pdf;
+      const coverUrl = issue.cover;
+
+      const media = document.createElement('div');
+      media.className = 'cover';
+      media.style.display = 'flex';
+      media.style.alignItems = 'center';
+      media.style.justifyContent = 'center';
+      media.style.background = '#f0f0f0';
+
+      if (coverUrl) {
+        const img = document.createElement('img');
+        img.className = 'cover';
+        img.alt = issue.alt || `Portada del ${number}`;
+        img.loading = 'lazy';
+        img.src = coverUrl;
+
+        img.onerror = async () => {
+          if (!pdfUrl) {
+            showPlaceholder(number.replace(/\D+/g, '') || '', media);
+            return;
+          }
+
+          try {
+            const canvas = document.createElement('canvas');
+            canvas.className = 'cover';
+            canvas.style.display = 'block';
+            canvas.style.width = '100%';
+            canvas.style.height = '100%';
+            await renderPdfFirstPageToCanvas(pdfUrl, canvas);
+            media.innerHTML = '';
+            media.appendChild(canvas);
+          } catch (err) {
+            showPlaceholder(number.replace(/\D+/g, '') || '', media);
+          }
+        };
+
+        media.appendChild(img);
+      } else if (pdfUrl) {
+        const canvas = document.createElement('canvas');
+        canvas.className = 'cover';
+        canvas.style.display = 'block';
+        canvas.style.width = '100%';
+        canvas.style.height = '100%';
+
+        renderPdfFirstPageToCanvas(pdfUrl, canvas)
+          .then(() => {
+            media.appendChild(canvas);
+          })
+          .catch(() => {
+            showPlaceholder(number.replace(/\D+/g, '') || '', media);
+          });
+      } else {
+        showPlaceholder(number.replace(/\D+/g, '') || '', media);
+      }
+
+      card.appendChild(media);
+      return card;
+    }
+
+    async function renderGallery() {
+      try {
+        const response = await fetch('data/issues.json');
+        if (!response.ok) {
+          throw new Error('No se pudo cargar data/issues.json');
         }
-      };
-      img.onerror = fallback;
-      fallback();
-      link.appendChild(img);
-      gallery.appendChild(link);
-    });
+
+        const data = await response.json();
+        const issues = Array.isArray(data.issues) ? data.issues : [];
+
+        if (!issues.length) {
+          gallery.innerHTML = '<div class="cover-fallback">Todavía no hay ejemplares disponibles.</div>';
+          return;
+        }
+
+        issues
+          .slice()
+          .reverse()
+          .forEach((issue) => gallery.appendChild(createIssueCard(issue)));
+      } catch (err) {
+        gallery.innerHTML = '<div class="cover-fallback">No se pudieron cargar los ejemplares. Revisa los archivos y las rutas.</div>';
+      }
+    }
+
+    renderGallery();
   </script>
 </body>
 </html>
