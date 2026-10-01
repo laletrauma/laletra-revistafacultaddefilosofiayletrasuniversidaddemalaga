@@ -163,16 +163,20 @@
         });
 
         orderedIssues.forEach(issue => {
-          const link = document.createElement('a');
-          link.className = 'issue-link';
-          link.href = issue.pdf || '#';
-          link.target = '_blank';
-          link.rel = 'noopener noreferrer';
-
-          const fileName = issue.pdf ? issue.pdf.split('/').pop() : `${issue.numero}.pdf`;
-          link.textContent = `${issue.numero} — ${fileName}`;
-          gallery.appendChild(link);
-        });
+    const link = document.createElement('a');
+    link.className = 'issue-link';
+    
+    // Primero calculamos el nombre limpio del archivo
+    const fileName = issue.pdf ? issue.pdf.split('/').pop() : `${issue.numero}.pdf`;
+    
+    // SOLUCIÓN: Añadimos 'ejemplares/' antes del nombre del archivo
+    link.href = issue.pdf ? 'ejemplares/' + fileName : '#';
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    
+    link.textContent = `${issue.numero} — ${fileName}`;
+    gallery.appendChild(link);
+});
       } catch (err) {
         gallery.innerHTML = '<div class="empty-state">No se pudieron cargar los ejemplares. Revisa los enlaces de Drive o la carpeta de PDFs.</div>';
       }
