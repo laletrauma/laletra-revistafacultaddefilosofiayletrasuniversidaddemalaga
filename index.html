@@ -3,6 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>La Letra | Revista Universitaria de Málaga</title>
+  <meta name="description" content="La Letra es la revista universitaria de la Universidad de Málaga. Consulta las portadas y accede a los números completos de la publicación." />
+  <meta name="keywords" content="La Letra, revista universitaria, Universidad de Málaga, UMA, revista La Letra, publicaciones UMA" />
+  <meta name="author" content="La Letra" />
+  <meta property="og:title" content="La Letra | Revista Universitaria de Málaga" />
+  <meta property="og:description" content="La Letra es la revista universitaria de la Universidad de Málaga. Consulta las portadas y accede a los números completos." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://www.uma.es/media/files/logo-uma-horizontal-positivo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="La Letra | Revista Universitaria de Málaga" />
+  <meta name="twitter:description" content="Revista universitaria de la Universidad de Málaga." />
   <title>LA LETRA</title>
   <style>
     :root {
@@ -21,7 +32,6 @@
       color: var(--text);
     }
 
-    /* CABECERA */
     .navbar {
       background: #ffffff;
       border-bottom: 2px solid var(--accent);
@@ -86,7 +96,6 @@
       width: auto;
     }
 
-    /* CONTENEDOR PRINCIPAL */
     .container {
       max-width: 1400px;
       margin: 0 auto;
@@ -109,7 +118,6 @@
       display: none;
     }
 
-    /* GRID DE PORTADAS */
     .grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -138,7 +146,6 @@
       }
     }
 
-    /* TARJETA DE PORTADA */
     .card {
       display: block;
       text-decoration: none;
@@ -177,7 +184,6 @@
       display: none;
     }
 
-    /* MENSAJE SIN RESULTADOS */
     .no-results {
       text-align: center;
       padding: 60px 20px;
@@ -192,7 +198,6 @@
   </style>
 </head>
 <body>
-  <!-- CABECERA CON LOGO Y BÚSQUEDA -->
   <nav class="navbar">
     <div class="navbar-content">
       <div class="logo-section">
@@ -203,7 +208,6 @@
     </div>
   </nav>
 
-  <!-- CONTENIDO PRINCIPAL -->
   <div class="container">
     <div class="header">
       <p>Selecciona una portada para abrir el PDF completo</p>
@@ -277,11 +281,8 @@
     const gallery = document.getElementById("gallery");
     const noResults = document.getElementById("noResults");
     const cards = [];
-
-    // Invertir el array para mostrar del último al primero
     const reversedIds = [...ids].reverse();
 
-    // Crear todas las tarjetas
     reversedIds.forEach((id, index) => {
       const originalIndex = ids.length - index;
       const link = document.createElement("a");
