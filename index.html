@@ -9,64 +9,197 @@
   <meta property="og:description" content="Consulta las portadas y accede a los números completos de La Letra." />
   <meta property="og:type" content="website" />
   <style>
-    :root { --text:#000; --accent:#000; --border:rgba(0,0,0,.08); --shadow:rgba(0,0,0,.1); }
-    * { box-sizing:border-box; }
-    body { margin:0; font-family:Arial,Helvetica,sans-serif; background:#fff; color:var(--text); }
-    .navbar { background:#fff; border-bottom:2px solid var(--accent); padding:20px 0; position:sticky; top:0; z-index:100; box-shadow:0 2px 8px var(--shadow); }
-    .navbar-content { max-width:1400px; margin:0 auto; padding:0 20px; display:flex; justify-content:space-between; align-items:center; gap:20px; }
-    .logo-section { display:flex; align-items:center; gap:15px; }
-    .logo-img { width:70px; height:70px; border-radius:50%; background:#fff; border:3px solid #000; display:flex; align-items:center; justify-content:center; font:italic bold 14px/1.2 'Times New Roman',serif; }
-    .logo { font:italic 900 32px 'Times New Roman',serif; letter-spacing:.12em; margin:0; }
-    .uma-logo { max-height:70px; max-width:260px; width:auto; object-fit:contain; }
-    .container { max-width:1400px; margin:0 auto; padding:40px 20px 80px; }
-    .grid { display:grid; grid-template-columns:repeat(4,1fr); gap:22px; }
-    .card { display:block; text-decoration:none; color:inherit; background:#fff; border:1px solid var(--border); border-radius:8px; overflow:hidden; transition:transform .18s,box-shadow .18s; box-shadow:0 2px 8px rgba(0,0,0,.06); }
-    .card:hover { transform:translateY(-4px); box-shadow:0 8px 20px rgba(0,0,0,.15); }
-    .cover { display:block; width:100%; aspect-ratio:3/4.2; object-fit:cover; background:#f0f0f0; }
-    .cover-fallback { display:flex; width:100%; aspect-ratio:3/4.2; align-items:center; justify-content:center; text-align:center; padding:20px; background:#f0f0f0; color:#555; font-weight:bold; }
-    .error-message { display:none; background:#fff3cd; border:1px solid #ffc107; color:#856404; padding:12px; border-radius:4px; margin-bottom:20px; font-size:14px; }
-    .error-message.show { display:block; }
-    @media (max-width:1200px) { .grid { grid-template-columns:repeat(3,1fr); } }
-    @media (max-width:768px) { .grid { grid-template-columns:repeat(2,1fr); } .navbar-content { flex-direction:column; } }
-    @media (max-width:480px) { .grid { grid-template-columns:1fr; } }
+    :root {
+      --text: #000;
+      --accent: #000;
+      --border: rgba(0,0,0,.08);
+      --shadow: rgba(0,0,0,.1);
+      --bg: #fff;
+      --fallback: #f0f0f0;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .navbar {
+      background: #fff;
+      border-bottom: 2px solid var(--accent);
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px var(--shadow);
+    }
+
+    .navbar-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo-img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: #fff;
+      border: 3px solid #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font: italic bold 14px/1.2 'Times New Roman', serif;
+    }
+
+    .logo {
+      font: italic 900 32px 'Times New Roman', serif;
+      letter-spacing: .12em;
+      margin: 0;
+    }
+
+    .uma-logo {
+      max-height: 70px;
+      max-width: 260px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform .18s, box-shadow .18s;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,0,0,.15);
+    }
+
+    .cover {
+      display: block;
+      width: 100%;
+      aspect-ratio: 3 / 4.2;
+      object-fit: cover;
+      background: var(--fallback);
+    }
+
+    .cover-fallback {
+      display: flex;
+      width: 100%;
+      aspect-ratio: 3 / 4.2;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+      background: var(--fallback);
+      color: #555;
+      font-weight: bold;
+    }
+
+    .error-message {
+      display: none;
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      color: #856404;
+      padding: 12px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    @media (max-width: 1200px) {
+      .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 768px) {
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .navbar-content { flex-direction: column; }
+    }
+
+    @media (max-width: 480px) {
+      .grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
   <nav class="navbar">
     <div class="navbar-content">
-      <div class="logo-section"><div class="logo-img">LA LETRA</div><h1 class="logo">LA LETRA</h1></div>
+      <div class="logo-section">
+        <div class="logo-img">LA LETRA</div>
+        <h1 class="logo">LA LETRA</h1>
+      </div>
       <img src="https://www.uma.es/media/files/logo-uma-horizontal-positivo.png" alt="Logo de la Universidad de Málaga" class="uma-logo" onerror="this.remove()" />
     </div>
   </nav>
+
   <main class="container">
-    <div id="errorMessage" class="error-message">Algunas portadas no se pueden mostrar desde Google Drive o rutas locales. Pulsa sobre ellas para abrir directamente el PDF.</div>
+    <div id="errorMessage" class="error-message">Algunas portadas se generan desde el primer folio del PDF. Si una portada no cargase, vuelve a intentar o abre el PDF directamente.</div>
     <div id="gallery" class="grid"></div>
   </main>
+
   <script type="module">
     import * as pdfjsLib from 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs';
-
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs';
 
     const gallery = document.getElementById('gallery');
     const errorMessage = document.getElementById('errorMessage');
 
-    function showPlaceholder(number, parent) {
+    function fallbackPlaceholder(container, number) {
       const placeholder = document.createElement('div');
       placeholder.className = 'cover-fallback';
-      placeholder.textContent = `Número ${number} — pulsa para abrir el PDF`;
-      parent.innerHTML = '';
-      parent.appendChild(placeholder);
+      placeholder.textContent = `Número ${number} — abre el PDF`;
+      container.innerHTML = '';
+      container.appendChild(placeholder);
       errorMessage.classList.add('show');
     }
 
-    async function renderPdfFirstPageToCanvas(pdfUrl, canvas) {
+    async function renderPdfCover(pdfUrl, targetContainer, issueNumber) {
       const pdf = await pdfjsLib.getDocument({ url: pdfUrl }).promise;
       const page = await pdf.getPage(1);
-      const viewport = page.getViewport({ scale: 1.25 });
-      const context = canvas.getContext('2d');
+      const viewport = page.getViewport({ scale: 1.2 });
+      const canvas = document.createElement('canvas');
+      canvas.className = 'cover';
       canvas.width = viewport.width;
       canvas.height = viewport.height;
-      await page.render({ canvasContext: context, viewport }).promise;
+      const ctx = canvas.getContext('2d');
+      await page.render({ canvasContext: ctx, viewport }).promise;
+      targetContainer.innerHTML = '';
+      targetContainer.appendChild(canvas);
     }
 
     function createIssueCard(issue) {
@@ -76,74 +209,47 @@
       card.target = '_blank';
       card.rel = 'noopener noreferrer';
 
-      const number = issue.numero || 'Nº';
-      const pdfUrl = issue.pdf;
-      const coverUrl = issue.cover;
-
       const media = document.createElement('div');
       media.className = 'cover';
+      media.style.background = '#f0f0f0';
       media.style.display = 'flex';
       media.style.alignItems = 'center';
       media.style.justifyContent = 'center';
-      media.style.background = '#f0f0f0';
 
-      if (coverUrl) {
+      const num = issue.numero.replace(/\D+/g, '') || issue.numero;
+
+      if (issue.cover) {
         const img = document.createElement('img');
         img.className = 'cover';
-        img.alt = issue.alt || `Portada del ${number}`;
         img.loading = 'lazy';
-        img.src = coverUrl;
-
+        img.alt = issue.alt || `Portada del número ${num}`;
+        img.src = issue.cover;
         img.onerror = async () => {
-          if (!pdfUrl) {
-            showPlaceholder(number.replace(/\D+/g, '') || '', media);
+          if (!issue.pdf) {
+            fallbackPlaceholder(media, num);
             return;
           }
-
           try {
-            const canvas = document.createElement('canvas');
-            canvas.className = 'cover';
-            canvas.style.display = 'block';
-            canvas.style.width = '100%';
-            canvas.style.height = '100%';
-            await renderPdfFirstPageToCanvas(pdfUrl, canvas);
-            media.innerHTML = '';
-            media.appendChild(canvas);
+            await renderPdfCover(issue.pdf, media, num);
           } catch (err) {
-            showPlaceholder(number.replace(/\D+/g, '') || '', media);
+            fallbackPlaceholder(media, num);
           }
         };
-
         media.appendChild(img);
-      } else if (pdfUrl) {
-        const canvas = document.createElement('canvas');
-        canvas.className = 'cover';
-        canvas.style.display = 'block';
-        canvas.style.width = '100%';
-        canvas.style.height = '100%';
-
-        renderPdfFirstPageToCanvas(pdfUrl, canvas)
-          .then(() => {
-            media.appendChild(canvas);
-          })
-          .catch(() => {
-            showPlaceholder(number.replace(/\D+/g, '') || '', media);
-          });
+      } else if (issue.pdf) {
+        renderPdfCover(issue.pdf, media, num).catch(() => fallbackPlaceholder(media, num));
       } else {
-        showPlaceholder(number.replace(/\D+/g, '') || '', media);
+        fallbackPlaceholder(media, num);
       }
 
       card.appendChild(media);
       return card;
     }
 
-    async function renderGallery() {
+    async function loadGallery() {
       try {
         const response = await fetch('data/issues.json');
-        if (!response.ok) {
-          throw new Error('No se pudo cargar data/issues.json');
-        }
-
+        if (!response.ok) throw new Error('No se pudo cargar data/issues.json');
         const data = await response.json();
         const issues = Array.isArray(data.issues) ? data.issues : [];
 
@@ -152,16 +258,13 @@
           return;
         }
 
-        issues
-          .slice()
-          .reverse()
-          .forEach((issue) => gallery.appendChild(createIssueCard(issue)));
+        [...issues].reverse().forEach(issue => gallery.appendChild(createIssueCard(issue)));
       } catch (err) {
-        gallery.innerHTML = '<div class="cover-fallback">No se pudieron cargar los ejemplares. Revisa los archivos y las rutas.</div>';
+        gallery.innerHTML = '<div class="cover-fallback">No se pudieron cargar los ejemplares. Revisa los enlaces de Drive o la carpeta de PDFs.</div>';
       }
     }
 
-    renderGallery();
+    loadGallery();
   </script>
 </body>
 </html>
